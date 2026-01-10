@@ -1,22 +1,24 @@
 # React CLI Starter
 
-A React CLI tool that helps you build and structure your React projects with pre-configured setups using the tools mentioned below
+A React CLI tool that helps you build and structure your projects in seconds, with pre-configured setups based on the tools you select below.
 
 ---
 
 ## Features
 
-* **Vite + React (TS)** – Fast and modern foundation.
-* **Styling Options** – Choose between Tailwind CSS or standard CSS.
-* **UI Components** – Optional Shadcn UI integration.
-* **Routing** – Built-in support for React Router or TanStack Router.
-* **Data Fetching** – Pre-configured TanStack Query (React Query) with providers and devtools.
+| Category | Options |
+| :--- | :--- |
+| **Styling** | Tailwind CSS, SCSS, Standard CSS |
+| **UI Components** | shadcn/ui, Mantine, Chakra UI |
+| **Routing** | TanStack Router, React Router |
+| **Data Fetching** | TanStack Query (React Query) |
+| **State Management** | Zustand (soon), Redux (soon) |
 
 ---
 
 ## Local Setup
 
-To use this CLI locally:
+To do your own changes and use this CLI locally:
 
 1. **Clone the repository:**
    ```bash
@@ -35,14 +37,19 @@ To use this CLI locally:
    ```bash
    pnpm link --global
 
+---
 
-## 💻 Usage
+##  Usage
 
 Run the following command in your terminal to start the interactive setup:
+
+```bash
+react-cli
+```
 
 
 ## 📂 Project Structure
 
-* `cli/` – Source TypeScript logic for the CLI.
-* `templates/` – Pre-defined boilerplates and configurations.
-* `dist/` – Compiled JavaScript (ESM) ready for execution.
+* `cli/` - Logic for the CLI.
+* `templates/` - Pre-defined boilerplates and configurations.
+* `dist/` - Compiled JavaScript.
