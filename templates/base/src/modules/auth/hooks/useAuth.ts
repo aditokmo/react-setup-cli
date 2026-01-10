@@ -1,0 +1,1 @@
+// Custom hook for auth services to seperate logic from the components

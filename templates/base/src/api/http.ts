@@ -1,0 +1,1 @@
+// Define global axios with axiosPrivate for protected routes
