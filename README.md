@@ -19,6 +19,7 @@ A React CLI tool that helps you build and structure your projects in seconds, wi
 | **Routing** | React Router, TanStack Router (soon) |
 | **Data Fetching** | TanStack Query (React Query) |
 | **State Management** | Zustand (soon) |
+| **Icons** | React Icons, FontAwesome |
 
 ---
 
