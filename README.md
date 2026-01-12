@@ -1,6 +1,6 @@
 # React CLI Starter
 
-A React CLI tool that helps you build and structure your projects in seconds, with pre-configured setups based on the tools you select below.
+A React CLI built with Vite helps you build and structure your projects in seconds, with pre-configured setups based on the tools you select below.
 
 ## What it does
 
