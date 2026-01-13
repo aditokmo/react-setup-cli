@@ -18,7 +18,7 @@ A React CLI built with Vite helps you build and structure your projects in secon
 | **Modules** | Common, Auth |
 | **Routing** | React Router, TanStack Router (soon) |
 | **Data Fetching** | TanStack Query (React Query) & Axios |
-| **State Management** | Zustand (soon) |
+| **State Management** | Zustand |
 | **Form** | React Hook Form, TanStack Form |
 | **Schema** | Zod, Yup |
 | **Styling** | CSS, SCSS, Tailwind CSS |
