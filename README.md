@@ -26,6 +26,7 @@ A React CLI built with Vite that helps you build and structure your projects in 
 | **Icons** | React Icons, Font Awesome |
 | **Toast** | React Toastify, React Hot Toast, Sonner |
 | **Custom Hooks** |  |
+| **Helpers** |  |
 
 ---
 
@@ -43,6 +44,36 @@ pnpm dlx @aditokmo/react-cli-setup
 # Using Yarn
 yarn dlx @aditokmo/react-cli-setup
 ```
+---
+
+## Folder Structure
+
+Note: This is the complete folder structure. The actual folders generated will depend on the libraries and options you select during the setup process.
+
+```text
+src/
+├── api/                # Global API client & Axios config
+├── components/         # Shared UI components
+├── hooks/              # Global reusable custom hooks
+├── providers/          # Providers (React Query, Tanstack Router)
+├── routes/             # Route definitions
+├── styles/             # Styles (Tailwind, CSS, SCSS)
+├── layout/             # Layout to split protected and unprotected routes
+│   ├── MainLayout.tsx
+│   ├── AuthLayout.tsx
+├── modules/            # Feature-based modules (The core of your app)
+│   └── auth/           # Example: Auth module
+│       ├── components/
+│       ├── hooks/
+│       ├── pages/
+│       ├── services/
+│       └── types/
+├── store/              # Global State Managemenet (Zustand)
+│   ├── useAuthStore.ts
+│   └── useThemeStore.ts
+└── utils/              # Helper functions
+```
+
 ---
 
 ## Local Setup
