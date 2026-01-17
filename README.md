@@ -1,4 +1,4 @@
-# React CLI Starter
+# React CLI Setup
 
 A React CLI built with Vite that helps you build and structure your projects in seconds, with pre-configured setups based on the tools you select below.
 
@@ -35,13 +35,13 @@ Run the following command in your terminal to start CLI
 
 ```bash
 # Using NPM
-npx @aditokmo/create-react-blueprint
+npx @aditokmo/react-cli-setup
 
 # Using PNPM
-pnpm dlx @aditokmo/create-react-blueprint
+pnpm dlx @aditokmo/react-cli-setup
 
 # Using Yarn
-yarn dlx @aditokmo/create-react-blueprint
+yarn dlx @aditokmo/react-cli-setup
 ```
 ---
 
@@ -68,7 +68,7 @@ To do your own changes and use this CLI locally:
 
 5. **Run command in your terminal to start CLI locally:**
 ```bash
-create-react-blueprint
+react-cli-setup
 ```
 
 ---
