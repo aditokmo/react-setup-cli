@@ -1,43 +1,55 @@
+import { useState } from "react";
 import { getAPIErrorMessage } from "@/utils/api-error-handler";
-import { AuthService } from "../services"
-import { useMutation } from '@tanstack/react-query';
+import { AuthService } from "../services";
 
 export const useAuth = () => {
-    const login = useMutation({
-        mutationFn: AuthService.login,
-        onSuccess: (res) => {
-            // Handle mutation success
-        },
-        onError: (error) => {
-            const errorMessage = getAPIErrorMessage(error);
-            console.error(errorMessage)
-            // Display error message to user
-        },
-    });
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
-    const register = useMutation({
-        mutationFn: AuthService.register,
-        onSuccess: (res) => {
-            // Handle mutation success
-        },
-        onError: (error) => {
-            const errorMessage = getAPIErrorMessage(error);
-            console.error(errorMessage)
-            // Display error message to user
-        },
-    });
+    const login = async (data: any) => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const res = await AuthService.login(data);
+            return res;
+        } catch (err) {
+            const errorMessage = getAPIErrorMessage(err);
+            setError(errorMessage);
+            console.error(errorMessage);
+            throw err;
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
-    const logout = useMutation({
-        mutationFn: AuthService.logout,
-        onSuccess: (res) => {
-            // Handle mutation success
-        },
-        onError: (error) => {
-            const errorMessage = getAPIErrorMessage(error);
-            console.error(errorMessage)
-            // Display error message to user
-        },
-    });
+    const register = async (data: any) => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const res = await AuthService.register(data);
+            return res;
+        } catch (err) {
+            const errorMessage = getAPIErrorMessage(err);
+            setError(errorMessage);
+            throw err;
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
-    return { login, register, logout }
-}
+    const logout = async () => {
+        try {
+            await AuthService.logout();
+        } catch (err) {
+            console.error(getAPIErrorMessage(err));
+        }
+    };
+
+    return {
+        login,
+        register,
+        logout,
+        isLoading,
+        error
+    };
+};

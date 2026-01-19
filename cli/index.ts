@@ -4,7 +4,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import { execSync } from 'child_process';
 import { askQuestions } from './questions.js';
-import { copyTemplate, patchViteConfig, finalizeViteConfig, patchAppFile, finalizeAppFile } from './utils.js';
+import { copyTemplate, patchViteConfig, finalizeViteConfig, patchAppFile, finalizeAppFile, detectPackageManager } from './utils.js';
 import { collectDependencies } from './installers.js';
 import { Answers } from './types.js';
 import { fileURLToPath } from 'url';
@@ -16,9 +16,13 @@ async function main() {
     console.log('⚛️ Welcome to React CLI Setup by github/aditokmo');
 
     let projectDir: string = '';
+    const originalDirectory = process.cwd();
 
     try {
         const answers: Answers = await askQuestions();
+
+        const packageManager = detectPackageManager();
+        const installAction = packageManager === 'yarn' ? 'add' : 'install';
 
         projectDir = path.join(process.cwd(), answers.projectName);
         const templateRoot = path.join(__dirname, '../templates');
@@ -57,8 +61,13 @@ async function main() {
         // State Management
         if (answers.reactQuery) {
             copyTemplate(
-                path.join(templateRoot, 'state', 'react-query', 'src'),
+                path.join(templateRoot, 'state', 'react-query', 'src', 'provider'),
                 path.join(projectDir, 'src/providers')
+            );
+
+            copyTemplate(
+                path.join(templateRoot, 'state', 'react-query', 'src', 'hook'),
+                path.join(projectDir, 'src/modules/auth/hooks')
             );
 
             patchAppFile(
@@ -128,18 +137,21 @@ async function main() {
         finalizeAppFile(appFilePath);
         finalizeViteConfig(viteConfigPath);
 
-        const { dependency, devDependency, cmd } = collectDependencies(answers);
+        const { dependency, devDependency, cmd } = collectDependencies(answers, packageManager);
 
         process.chdir(projectDir);
 
+        console.log(`📦 Initializing ${packageManager} project...`);
+        execSync(`${packageManager} install`, { stdio: 'inherit' });
+
         if (dependency.length) {
             console.log('📦 Installing dependencies...');
-            execSync(`pnpm add ${dependency.join(' ')}`, { stdio: 'inherit' });
+            execSync(`${packageManager} ${installAction} ${dependency.join(' ')}`, { stdio: 'inherit' });
         }
 
         if (devDependency.length) {
             console.log('📦 Installing dev dependencies...');
-            execSync(`pnpm add -D ${devDependency.join(' ')}`, { stdio: 'inherit' });
+            execSync(`${packageManager} ${installAction} -D ${devDependency.join(' ')}`, { stdio: 'inherit' });
         }
 
         // Extra cmds like shadcn
@@ -149,10 +161,12 @@ async function main() {
         }
 
         console.log('✅ Project setup completed');
-        console.log(`👉 cd ${answers.projectName} && pnpm run dev`);
+        console.log(`👉 cd ${answers.projectName} && ${packageManager} run dev`);
     } catch (error: any) {
         console.error('\n❌ Error while creating a project:');
         console.error(`👉 ${error.message}`);
+
+        process.chdir(originalDirectory);
 
         if (projectDir && fs.existsSync(projectDir)) {
             console.log('🧹 Cleaning... Deleting failed project installation.');

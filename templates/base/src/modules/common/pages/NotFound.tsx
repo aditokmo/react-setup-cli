@@ -1,9 +1,14 @@
-export function NotFound() {
+import '@/styles/404.css';
+
+export const NotFound = () => {
     return (
-        <div className="flex flex-col items-center justify-center h-screen">
-            <h1 className="text-4xl font-bold">404 - Page Not Found</h1>
-            <p>Page you are looking, doesn't exist.</p>
-            <a href="/" className="text-blue-500 underline mt-4">Go Back</a>
+        <div className="not-found-wrapper">
+            <div className="not-found-content">
+                <span>404</span>
+                <h1>Oops! Page Not Found</h1>
+                <p>The page you are looking for doesn't exist. Click button below to go to the homepage</p>
+                <a href="/">Back to Homepage</a>
+            </div>
         </div>
-    )
-}
+    );
+};

@@ -1,5 +1,5 @@
-import { group, text, select, confirm, isCancel, cancel } from '@clack/prompts';
-import { Answers, FormOption, GlobalStateOption, IconOption, RouterOption, SchemaOption, StyleOption, ToastOption } from './types.js';
+import { group, text, select, confirm, isCancel, cancel, multiselect } from '@clack/prompts';
+import { Answers, FormOption, GlobalStateOption, IconOption, RouterOption, SchemaOption, ShadcnComponents, StyleOption, ToastOption } from './types.js';
 
 export async function askQuestions(): Promise<Answers> {
     const results = await group(
@@ -23,11 +23,33 @@ export async function askQuestions(): Promise<Answers> {
                 return confirm({ message: 'Include Shadcn UI?' });
             },
 
+            shadcnComponents: ({ results }) => {
+                if (!results.shadcn) return Promise.resolve([]);
+
+                return multiselect({
+                    message: 'Use space to select shadcn/ui components to install:',
+                    options: [
+                        { value: 'button', label: 'Button' },
+                        { value: 'input', label: 'Input' },
+                        { value: 'card', label: 'Card' },
+                        { value: 'dialog', label: 'Dialog' },
+                        { value: 'sheet', label: 'Sheet' },
+                        { value: 'dropdown-menu', label: 'Dropdown Menu' },
+                        { value: 'table', label: 'Table' },
+                        { value: 'checkbox', label: 'Checkbox' },
+                        { value: 'avatar', label: 'Avatar' },
+                        { value: 'badge', label: 'Badge' },
+                    ],
+                    required: false,
+                });
+            },
+
             icons: () => select<IconOption>({
                 message: 'Choose icon library:',
                 options: [
                     { value: 'react-icons', label: 'React Icons' },
                     { value: 'font-awesome', label: 'Font Awesome' },
+                    { value: 'phosphor-icons', label: 'Phosphor Icons' }
                 ]
             }),
 
@@ -85,6 +107,9 @@ export async function askQuestions(): Promise<Answers> {
         isCancel(results.style) ||
         isCancel(results.router) ||
         isCancel(results.shadcn) ||
+        isCancel(results.shadcnComponents) ||
+        isCancel(results.icons) ||
+        isCancel(results.toast) ||
         isCancel(results.reactQuery)
     ) {
         cancel('Setup cancelled.');
@@ -94,5 +119,6 @@ export async function askQuestions(): Promise<Answers> {
     return {
         ...results,
         shadcn: results.shadcn as boolean,
+        shadcnComponents: (results.shadcnComponents ?? []) as ShadcnComponents[],
     };
 }

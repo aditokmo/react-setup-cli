@@ -1,6 +1,6 @@
 {
   "name": "@aditokmo/react-setup-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A fast React CLI to jumpstart your projects. It sets up your libraries and organizes a scalable folder structure so you can skip the configuration and go straight to coding.",
   "main": "dist/index.js",
   "type": "module",

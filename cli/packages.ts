@@ -23,6 +23,10 @@ export const fontAwesomeIconsInstaller = {
     dependency: ['@fortawesome/fontawesome-svg-core', '@fortawesome/react-fontawesome', '@fortawesome/free-solid-svg-icons', '@fortawesome/free-regular-svg-icons', '@fortawesome/free-brands-svg-icons'],
 }
 
+export const phosphorIconsInstaller = {
+    dependency: ['phosphor-react'],
+}
+
 // Toast
 export const reactHotToastInstaller = {
     dependency: ['react-hot-toast'],
@@ -35,11 +39,6 @@ export const reactToastifyInstaller = {
 export const sonnerInstaller = {
     dependency: ['sonner'],
 }
-
-// UI Libs
-export const shadcnInstaller = {
-    cmd: ['pnpm dlx shadcn@latest init']
-};
 
 // Routers
 export const reactRouterInstaller = {

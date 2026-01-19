@@ -87,3 +87,12 @@ export function finalizeAppFile(filePath: string) {
 
     fs.writeFileSync(filePath, content + '\n');
 }
+
+export function detectPackageManager() {
+    const userAgent = process.env.npm_config_user_agent || '';
+
+    if (userAgent.includes('pnpm')) return 'pnpm';
+    if (userAgent.includes('yarn')) return 'yarn';
+
+    return 'npm';
+}

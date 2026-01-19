@@ -1,17 +1,20 @@
 import { installers } from './mapper.js';
-import { axiosInstaller, shadcnInstaller } from './packages.js';
+import { axiosInstaller } from './packages.js';
 import { Answers } from './types.js';
 
-export function collectDependencies(answers: Answers) {
+export function collectDependencies(answers: Answers, packageManager: string) {
     const dependency = new Set<string>();
     const devDependency = new Set<string>();
     const cmd: string[] = [];
+
+    const dlx = packageManager === 'npm' ? 'npx --yes' : `${packageManager} dlx --yes`;
 
     // Default base packages
     axiosInstaller.dependency?.forEach(d => dependency.add(d));
 
     // Packages from answers
     Object.entries(answers).forEach(([key, value]) => {
+        if (Array.isArray(value)) return;
         const installer = installers[value === true ? key : value];
 
         installer?.dependency?.forEach(d => dependency.add(d));
@@ -19,7 +22,12 @@ export function collectDependencies(answers: Answers) {
     })
 
     if (answers.shadcn && answers.style === 'tailwind') {
-        cmd.push(...shadcnInstaller.cmd);
+        cmd.push(`${dlx} shadcn@latest init -d`);
+
+        if (answers.shadcnComponents && answers.shadcnComponents.length > 0) {
+            const componentsStr = answers.shadcnComponents.join(' ');
+            cmd.push(`${dlx} shadcn@latest add ${componentsStr} -y -o`);
+        }
     }
 
     return {
