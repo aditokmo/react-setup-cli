@@ -7,7 +7,6 @@ export async function askQuestions(): Promise<Answers> {
             projectName: () => text({
                 message: 'Project name:',
                 placeholder: 'my-app',
-                validate: (value) => (value.length < 0 ? 'Project name is required' : undefined),
             }),
 
             style: () => select<StyleOption>({
@@ -134,6 +133,7 @@ export async function askQuestions(): Promise<Answers> {
 
     return {
         ...results,
+        projectName: results.projectName || 'my-app',
         shadcn: results.shadcn as boolean,
         shadcnComponents: (results.shadcnComponents ?? []) as ShadcnComponents[],
         fonts: (results.fonts ?? []) as Fonts[]

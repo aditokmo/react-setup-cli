@@ -4,7 +4,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import { execSync } from 'child_process';
 import { askQuestions } from './questions.js';
-import { copyTemplate, patchViteConfig, finalizeViteConfig, patchAppFile, finalizeAppFile, detectPackageManager, patchIndexHTMLFile } from './utils.js';
+import { copyTemplate, patchViteConfig, finalizeViteConfig, patchAppFile, finalizeAppFile, detectPackageManager, patchPackageJsonFile, patchFileContent } from './utils.js';
 import { collectDependencies } from './installers.js';
 import { Answers } from './types.js';
 import { fileURLToPath } from 'url';
@@ -12,6 +12,23 @@ import { FONT_QUERIES } from './mapper.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+const baseDeps = ['react', 'react-dom'];
+
+const baseDevDeps = [
+    'vite',
+    'typescript',
+    '@types/node',
+    '@types/react',
+    '@types/react-dom',
+    '@vitejs/plugin-react-swc',
+    'eslint',
+    '@eslint/js',
+    'eslint-plugin-react-hooks',
+    'eslint-plugin-react-refresh',
+    'globals',
+    'typescript-eslint'
+];
 
 async function main() {
     console.log('⚛️ Welcome to React CLI Setup by github/aditokmo');
@@ -28,7 +45,8 @@ async function main() {
         projectDir = path.join(process.cwd(), answers.projectName);
         const templateRoot = path.join(__dirname, '../templates');
         const appFilePath = path.join(projectDir, 'src', 'App.tsx');
-        const indexHTMLPath = path.join(projectDir, 'src', 'index.html');
+        const indexHTMLPath = path.join(projectDir, 'index.html');
+        const notFoundPath = path.join(projectDir, 'src/modules/common/pages/NotFound.tsx');
         const viteConfigPath = path.join(projectDir, 'vite.config.ts');
 
         fs.ensureDirSync(projectDir);
@@ -37,6 +55,8 @@ async function main() {
             path.join(templateRoot, 'base'),
             projectDir
         );
+
+        patchPackageJsonFile(path.join(projectDir, 'package.json'), answers.projectName);
 
         // Styles
         if (answers.style === 'tailwind') {
@@ -66,7 +86,10 @@ async function main() {
                 path.join(projectDir, 'src/styles')
             );
 
-            patchIndexHTMLFile(path.join(projectDir, 'index.html'), '<link rel="stylesheet" href="./src/styles/main.css" />', '<link rel="stylesheet" href="./src/styles/main.scss" />');
+
+            patchFileContent(notFoundPath, "import '@/styles/404.css'", "import '@/styles/404.scss'");
+
+            patchFileContent(indexHTMLPath, '<link rel="stylesheet" href="./src/styles/main.css" />', '<link rel="stylesheet" href="./src/styles/main.scss" />');
         }
 
         // Fonts
@@ -82,11 +105,9 @@ async function main() {
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
                 <link href="${url}" rel="stylesheet">`;
 
-            patchIndexHTMLFile(path.join(projectDir, 'index.html'), '<!-- [HEAD_LINK_IMPORT] -->', content);
+            patchFileContent(indexHTMLPath, '<!-- [HEAD_LINK_IMPORT] -->', content);
         } else {
-            let html = fs.readFileSync(indexHTMLPath, 'utf-8');
-            html = html.replace('', '');
-            fs.writeFileSync(indexHTMLPath, html);
+            patchFileContent(indexHTMLPath, '<!-- [HEAD_LINK_IMPORT] -->', '');
         }
 
         // State Management
@@ -170,21 +191,24 @@ async function main() {
 
         const { dependency, devDependency, cmd } = collectDependencies(answers, packageManager);
 
+        const allDeps = [...baseDeps, ...dependency];
+        const allDevDeps = [...baseDevDeps, ...devDependency];
+
         process.chdir(projectDir);
 
         console.log(`📦 Initializing ${packageManager} project...`);
         execSync(`${packageManager} install`, { stdio: 'inherit' });
 
-        if (dependency.length) {
+        if (allDeps.length) {
             console.log('📦 Installing dependencies...');
-            execSync(`${packageManager} ${installAction} ${dependency.join(' ')}`, { stdio: 'inherit' });
+            execSync(`${packageManager} ${installAction} ${allDeps.join(' ')}`, { stdio: 'inherit' });
         }
 
-        if (devDependency.length) {
+        if (allDevDeps.length) {
             console.log('📦 Installing dev dependencies...');
-            execSync(`${packageManager} ${installAction} -D ${devDependency.join(' ')}`, { stdio: 'inherit' });
+            execSync(`${packageManager} ${installAction} -D ${allDevDeps.join(' ')}`, { stdio: 'inherit' });
         }
-
+        
         // Extra cmds like shadcn
         for (const command of cmd) {
             console.log(`⚙️ Running: ${command}`);

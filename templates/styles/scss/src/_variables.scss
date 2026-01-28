@@ -1,7 +1,23 @@
 // Brand Colors
 $primary: #37538a;
+$primary-hover: #263c67;
 $primary-dark: #263c67;
 $accent: #e6edfc;
+
+// Text
+$text-dark: #111111;
+$text-muted: #666666;
+
+// Background
+$bg-light: #e6edfc;
+
+// Radius
+$radius-sm: 10px;
+$radius-md: 16px;
+$radius-lg: 24px;
+
+// Shadows
+$shadow-main: 0px 0px 14px -14px rgba(0, 0, 0, 0.75);
 
 // Neutrals
 $white: #ffffff;
@@ -10,7 +26,3 @@ $gray: #666666;
 
 // Fonts
 $font-main: "Arial", sans-serif;
-
-// Breakpoints
-$breakpoint-tablet: 768px;
-$breakpoint-mobile: 480px;

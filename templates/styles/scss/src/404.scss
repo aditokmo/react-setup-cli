@@ -48,7 +48,7 @@
     a {
       font-size: 0.9rem;
       color: $white;
-      background-color: $primary-blue;
+      background-color: $primary;
       padding: 10px 30px;
       margin-top: 20px;
       border-radius: $radius-sm;
@@ -58,7 +58,7 @@
       display: inline-block;
 
       &:hover {
-        background: $primary-blue-hover;
+        background: $primary-hover;
       }
     }
 

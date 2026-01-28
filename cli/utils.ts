@@ -2,18 +2,17 @@ import fs from 'fs-extra';
 
 export function copyTemplate(src: string, path: string) {
     if (!fs.existsSync(src)) {
-        console.warn(`⚠️ Template folder ${src} dosn't exist`);
+        console.warn(`⚠️ Template folder ${src} doesn't exist`);
         return;
     }
     fs.copySync(src, path, { overwrite: true });
 }
 
-export function patchIndexHTMLFile(filePath: string, importLine: string, newContent: string) {
-    let htmlContent = fs.readFileSync(filePath, 'utf-8');
-
-    htmlContent = htmlContent.replace(importLine, newContent);
-
-    fs.writeFileSync(filePath, htmlContent);
+export function patchFileContent(filePath: string, searchValue: string, replaceValue: string) {
+    if (!fs.existsSync(filePath)) return;
+    const content = fs.readFileSync(filePath, 'utf-8');
+    const newContent = content.replace(searchValue, replaceValue);
+    fs.writeFileSync(filePath, newContent);
 }
 
 export function patchAppFile(filePath: string, importLine: string, openTag: string, closeTag: string) {
@@ -41,6 +40,18 @@ export function patchAppFile(filePath: string, importLine: string, openTag: stri
     }
 
     fs.writeFileSync(filePath, content);
+}
+
+export function patchPackageJsonFile(filePath: string, projectName: string) {
+    if (!fs.existsSync(filePath)) return;
+
+    try {
+        const pkg = fs.readJsonSync(filePath);
+        pkg.name = projectName;
+        fs.writeJsonSync(filePath, pkg, { spaces: 2 });
+    } catch (error) {
+        console.error('⚠️ Could not update package.json name');
+    }
 }
 
 export function patchViteConfig(filePath: string, beforeReactPlugin: boolean, importLine: string, pluginLine: string) {
