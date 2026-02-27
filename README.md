@@ -1,4 +1,4 @@
-# @aditokmo/react-setup-cli 🚀
+# Create React Project CLI 🚀
 
 [![npm version](https://img.shields.io/npm/v/@aditokmo/create-react-project?color=blue)](https://www.npmjs.com/package/@aditokmo/create-react-project)
 
@@ -42,13 +42,11 @@ yarn create @aditokmo/react-project
 
 <br>
 
-## About Arhitecture
+## About Architecture
 
 ### Folder Structure
 
 - **Feature-Based**: This architecture uses a modular approach to help you build large-scale projects. Instead of mixing all components and hooks into global folders, everything is grouped by domain, such as Auth or Dashboard. This method makes it much easier to navigate the codebase and ensures your project remains maintainable as it grows.
-
-- **Pages**: Comming soon
 
 ### Client State Management
 
@@ -64,7 +62,7 @@ The CLI generates a pre-configured Axios client that serves as your central API 
 
 ### Styling
 
-You can choose between **CSS**, **SCSS**, or **TailwindCSS**. While I personally recommend Tailwind for modern and faster development, the CLI ensures that regardless of your choice, the project is configured with a global styles directory and a consistent entry point. If you select TailwindCSS you will also have option to use Shadcn/UI, and with that you will have option to choose components that you want to install instead of doing it manually.
+You can choose between **CSS**, **SCSS**, or **Tailwind CSS**. While I personally recommend Tailwind for modern and faster development, the CLI ensures that regardless of your choice, the project is configured with a global styles directory and a consistent entry point. If you select TailwindCSS you will also have option to use Shadcn/UI, and with that you will have option to choose components that you want to install instead of doing it manually.
 
 ### Routing
 
