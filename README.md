@@ -1,6 +1,6 @@
 # @aditokmo/react-setup-cli 🚀
 
-[![npm version](https://img.shields.io/npm/v/@aditokmo/react-setup-cli?color=blue)](https://www.npmjs.com/package/@aditokmo/react-setup-cli)
+[![npm version](https://img.shields.io/npm/v/@aditokmo/create-react-project?color=blue)](https://www.npmjs.com/package/@aditokmo/create-react-project)
 
 A React CLI built on top of Vite that helps you build and structure projects in seconds. It eliminates manual setup by configuring your favorite tools into a **clean, modular architecture** automatically.
 
