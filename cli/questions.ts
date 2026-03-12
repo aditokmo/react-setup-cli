@@ -1,5 +1,5 @@
 import { group, text, select, confirm, isCancel, cancel, multiselect } from '@clack/prompts';
-import { Answers, Fonts, FormOption, GlobalStateOption, IconOption, RouterOption, SchemaOption, ShadcnComponents, StyleOption, ToastOption } from './types.js';
+import { Answers, CustomHooks, Fonts, FormOption, GlobalStateOption, IconOption, RouterOption, SchemaOption, ShadcnComponents, StyleOption, ToastOption } from './types.js';
 
 export async function askQuestions(): Promise<Answers> {
     const results = await group(
@@ -27,7 +27,7 @@ export async function askQuestions(): Promise<Answers> {
                 if (!results.shadcn) return Promise.resolve([]);
 
                 return multiselect({
-                    message: 'Use space to select shadcn/ui components to install:',
+                    message: 'Use space to select shadcn/ui components to install and use enter to continue or skip',
                     options: [
                         { value: 'button', label: 'Button' },
                         { value: 'input', label: 'Input' },
@@ -44,8 +44,15 @@ export async function askQuestions(): Promise<Answers> {
                 });
             },
 
+            customHooks: () => multiselect<CustomHooks>({
+                message: 'Use space to select custom hooks and enter to continue or skip',
+                options: [
+                    { value: 'useDebounce', label: 'useDebounce' }
+                ]
+            }),
+
             fonts: () => multiselect<Fonts>({
-                message: 'Use space to select your fonts',
+                message: 'Use space to select fonts and enter to continue or skip',
                 options: [
                     { value: 'geist', label: 'Geist' },
                     { value: 'inter', label: 'Inter' },
@@ -125,7 +132,8 @@ export async function askQuestions(): Promise<Answers> {
         isCancel(results.icons) ||
         isCancel(results.toast) ||
         isCancel(results.reactQuery) ||
-        isCancel(results.fonts)
+        isCancel(results.fonts) ||
+        isCancel(results.customHooks)
     ) {
         cancel('Setup cancelled.');
         process.exit(0);
@@ -136,6 +144,5 @@ export async function askQuestions(): Promise<Answers> {
         projectName: results.projectName || 'my-app',
         shadcn: results.shadcn as boolean,
         shadcnComponents: (results.shadcnComponents ?? []) as ShadcnComponents[],
-        fonts: (results.fonts ?? []) as Fonts[]
     };
 }

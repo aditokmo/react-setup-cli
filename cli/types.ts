@@ -1,5 +1,6 @@
 export type StyleOption = 'tailwind' | 'css' | 'scss';
 export type RouterOption = 'react-router' | 'tanstack-router';
+export type CustomHooks = 'useDebounce';
 export type IconOption = 'react-icons' | 'font-awesome' | 'phosphor-icons';
 export type ToastOption = 'react-hot-toast' | 'react-toastify' | 'sonner';
 export type FormOption = 'react-hook-form' | 'tanstack-form';
@@ -20,11 +21,12 @@ export interface Answers {
     router: RouterOption;
     reactQuery: boolean;
     shadcn: boolean;
-    shadcnComponents?: ShadcnComponents[];
     icons: IconOption;
     toast: ToastOption;
     form: FormOption
     schema: SchemaOption;
     globalState: GlobalStateOption;
     fonts?: Fonts[];
+    customHooks?: CustomHooks[];
+    shadcnComponents?: ShadcnComponents[];
 }
