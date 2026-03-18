@@ -137,6 +137,22 @@ async function main() {
             )
         }
 
+        // Custom Hooks
+        if (answers.customHooks && answers.customHooks.length > 0) {
+            console.log('🎣 Adding selected custom hooks...');
+
+            const hooksDir = path.join(projectDir, 'src/hooks');
+            fs.ensureDirSync(hooksDir);
+
+            answers.customHooks.forEach((hookName) => {
+                const fileName = `${hookName}.ts`;
+                const srcPath = path.join(templateRoot, 'hooks', fileName);
+                const destPath = path.join(hooksDir, fileName);
+
+                copyTemplate(srcPath, destPath);
+            })
+        }
+
         // Router
         if (answers.router === 'react-router') {
             copyTemplate(
@@ -208,7 +224,7 @@ async function main() {
             console.log('📦 Installing dev dependencies...');
             execSync(`${packageManager} ${installAction} -D ${allDevDeps.join(' ')}`, { stdio: 'inherit' });
         }
-        
+
         // Extra cmds like shadcn
         for (const command of cmd) {
             console.log(`⚙️ Running: ${command}`);
