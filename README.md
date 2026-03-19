@@ -68,7 +68,7 @@ You can choose between **CSS**, **SCSS**, or **Tailwind CSS**. While I personall
 
 - **React Router** is the industry standard that most developers are familiar with.
 
-- **TanStack Router** is included for those who want a fully type-safe routing experience with built-in data loading capabilities. 
+- **TanStack Router** is included for those who want a fully type-safe routing experience with built-in data loading capabilities.
 
 Whichever you choose, the CLI doesn't just install the library it will generate a `routes/` directory system to help you easily separate your public pages from protected pages.
 
@@ -128,13 +128,12 @@ src/
 | **UI Components**    | Shadcn                                  |
 | **Icons**            | React Icons, Font Awesome               |
 | **Toast**            | React Toastify, React Hot Toast, Sonner |
-| **Custom Hooks**     |                                         |
+| **Custom Hooks**     | useDebounce, useThrottle                |
 | **Helpers**          |                                         |
 
 <br>
 
 ## Future of CLI
-
 
 - Options to choose between React, Next.js and TanStack Start
 - Testing tools
