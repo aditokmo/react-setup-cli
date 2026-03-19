@@ -22,9 +22,11 @@ export function collectDependencies(answers: Answers, packageManager: string) {
     })
 
     if (answers.shadcn && answers.style === 'tailwind') {
+        console.log('|- Setting up shadcn/ui with Tailwind CSS...');
         cmd.push(`${dlx} shadcn@latest init -d`);
 
         if (answers.shadcnComponents && answers.shadcnComponents.length > 0) {
+            console.log(`|- Setting up shadcn/ui Components: ${answers.shadcnComponents.join(', ')}...`);
             const componentsStr = answers.shadcnComponents.join(' ');
             cmd.push(`${dlx} shadcn@latest add ${componentsStr} -y -o`);
         }

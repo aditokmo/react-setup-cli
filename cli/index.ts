@@ -60,6 +60,8 @@ async function main() {
 
         // Styles
         if (answers.style === 'tailwind') {
+            console.log('|- Setting up Tailwind CSS...');
+
             copyTemplate(
                 path.join(templateRoot, 'styles', 'tailwind', 'src'),
                 path.join(projectDir, 'src/styles')
@@ -74,6 +76,8 @@ async function main() {
         }
 
         if (answers.style === 'css') {
+            console.log('|- Setting up CSS...');
+
             copyTemplate(
                 path.join(templateRoot, 'styles', 'css', 'src'),
                 path.join(projectDir, 'src/styles')
@@ -81,6 +85,8 @@ async function main() {
         }
 
         if (answers.style === 'scss') {
+            console.log('|- Setting up SCSS...');
+
             copyTemplate(
                 path.join(templateRoot, 'styles', 'scss', 'src'),
                 path.join(projectDir, 'src/styles')
@@ -94,6 +100,8 @@ async function main() {
 
         // Fonts
         if (answers?.fonts && answers.fonts.length > 0) {
+            console.log(`|- Setting up Fonts: ${answers.fonts.join(', ')}...`);
+
             const fontString = answers.fonts
                 .map(name => FONT_QUERIES[name])
                 .join('&');
@@ -112,6 +120,8 @@ async function main() {
 
         // State Management
         if (answers.reactQuery) {
+            console.log('|- Setting up TanStack React Query...');
+
             copyTemplate(
                 path.join(templateRoot, 'state', 'react-query', 'src', 'provider'),
                 path.join(projectDir, 'src/providers')
@@ -131,6 +141,8 @@ async function main() {
         }
 
         if (answers.globalState === 'zustand') {
+            console.log('|- Setting up Zustand...');
+
             copyTemplate(
                 path.join(templateRoot, 'state', 'zustand', 'src'),
                 path.join(projectDir, 'src/store')
@@ -139,7 +151,7 @@ async function main() {
 
         // Custom Hooks
         if (answers.customHooks && answers.customHooks.length > 0) {
-            console.log('🎣 Adding selected custom hooks...');
+            console.log(`|- Setting up Custom Hooks: ${answers.customHooks.join(', ')}...`);
 
             const hooksDir = path.join(projectDir, 'src/hooks');
             fs.ensureDirSync(hooksDir);
@@ -155,6 +167,8 @@ async function main() {
 
         // Router
         if (answers.router === 'react-router') {
+            console.log('|- Setting up React Router...');
+
             copyTemplate(
                 path.join(templateRoot, 'router', 'react-router', 'src', 'routes'),
                 path.join(projectDir, 'src/routes')
@@ -177,6 +191,8 @@ async function main() {
                 "</BrowserRouter>"
             );
         } else if (answers.router === 'tanstack-router') {
+            console.log('|- Setting up TanStack Router...');
+
             copyTemplate(
                 path.join(templateRoot, 'router', 'tanstack-router', 'src', 'routes'),
                 path.join(projectDir, 'src/routes')
