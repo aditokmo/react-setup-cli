@@ -1,6 +1,6 @@
 export type StyleOption = 'tailwind' | 'css' | 'scss';
 export type RouterOption = 'react-router' | 'tanstack-router';
-export type CustomHooks = 'useDebounce';
+export type CustomHooks = 'useDebounce' | 'useThrottle';
 export type IconOption = 'react-icons' | 'font-awesome' | 'phosphor-icons';
 export type ToastOption = 'react-hot-toast' | 'react-toastify' | 'sonner';
 export type FormOption = 'react-hook-form' | 'tanstack-form';

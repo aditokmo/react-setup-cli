@@ -47,7 +47,8 @@ export async function askQuestions(): Promise<Answers> {
             customHooks: () => multiselect<CustomHooks>({
                 message: 'Use space to select custom hooks and enter to continue or skip',
                 options: [
-                    { value: 'useDebounce', label: 'useDebounce' }
+                    { value: 'useDebounce', label: 'useDebounce' },
+                    { value: 'useThrottle', label: 'useThrottle' },
                 ]
             }),
 
