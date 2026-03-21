@@ -49,6 +49,7 @@ export async function askQuestions(): Promise<Answers> {
                 options: [
                     { value: 'useDebounce', label: 'useDebounce' },
                     { value: 'useThrottle', label: 'useThrottle' },
+                    { value: 'useToggle', label: 'useToggle' },
                 ]
             }),
 
