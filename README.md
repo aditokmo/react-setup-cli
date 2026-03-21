@@ -128,7 +128,7 @@ src/
 | **UI Components**    | Shadcn                                  |
 | **Icons**            | React Icons, Font Awesome               |
 | **Toast**            | React Toastify, React Hot Toast, Sonner |
-| **Custom Hooks**     | useDebounce, useThrottle                |
+| **Custom Hooks**     | useDebounce, useThrottle, useToggle     |
 | **Helpers**          |                                         |
 
 <br>
