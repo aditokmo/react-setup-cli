@@ -154,7 +154,11 @@ async function main() {
             console.log(`|- Setting up Custom Hooks: ${answers.customHooks.join(', ')}...`);
 
             const hooksDir = path.join(projectDir, 'src/hooks');
+            const hooksIndexFile = path.join(hooksDir, 'index.ts');
+
             fs.ensureDirSync(hooksDir);
+
+            copyTemplate(path.join(templateRoot, 'hooks', 'index.ts'), hooksIndexFile);
 
             answers.customHooks.forEach((hookName) => {
                 const fileName = `${hookName}.ts`;
@@ -163,6 +167,7 @@ async function main() {
 
                 copyTemplate(srcPath, destPath);
             })
+            patchFileContent(hooksIndexFile, '/* CUSTOM_HOOKS */', answers.customHooks.map(hook => `export * from './${hook}';`).join('\n'));
         }
 
         // Router
