@@ -115,21 +115,21 @@ src/
 
 ## Features
 
-| Category             | Options                                 |
-| :------------------- | :-------------------------------------- |
-| **Folder Structure** | Feature-based                           |
-| **Modules**          | Common, Auth                            |
-| **Routing**          | React Router, TanStack Router           |
-| **Data Fetching**    | TanStack Query (React Query) & Axios    |
-| **State Management** | Zustand                                 |
-| **Form**             | React Hook Form, TanStack Form          |
-| **Schema**           | Zod, Yup                                |
-| **Styling**          | CSS, SCSS, Tailwind CSS                 |
-| **UI Components**    | Shadcn                                  |
-| **Icons**            | React Icons, Font Awesome               |
-| **Toast**            | React Toastify, React Hot Toast, Sonner |
-| **Custom Hooks**     | useDebounce, useThrottle, useToggle     |
-| **Helpers**          |                                         |
+| Category             | Options                                 
+| :------------------- | :-------------------------------------- 
+| **Folder Structure** | Feature-based                                 
+| **Modules**          | Common, Auth                            
+| **Routing**          | React Router, TanStack Router           
+| **Data Fetching**    | TanStack Query (React Query) & Axios    
+| **State Management** | Zustand                                 
+| **Form**             | React Hook Form, TanStack Form          
+| **Schema**           | Zod, Yup                                
+| **Styling**          | CSS, SCSS, Tailwind CSS                 
+| **UI Components**    | Shadcn                                                  
+| **Icons**            | React Icons, Font Awesome                                 
+| **Toast**            | React Toastify, React Hot Toast, Sonner                   
+| **Custom Hooks**     | useDebounce, useThrottle, useToggle, useMediaQuery        
+| **Helpers**          |                                         
 
 <br>
 
