@@ -50,6 +50,7 @@ export async function askQuestions(): Promise<Answers> {
                     { value: 'useDebounce', label: 'useDebounce' },
                     { value: 'useThrottle', label: 'useThrottle' },
                     { value: 'useToggle', label: 'useToggle' },
+                    { value: 'useMediaQuery', label: 'useMediaQuery' },
                 ]
             }),
 
